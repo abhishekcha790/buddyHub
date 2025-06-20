@@ -1,12 +1,15 @@
 const express = require("express");
 const mongoose = require("mongoose");
+const dotenv = require("dotenv");
+
+dotenv.config();
+
 const app = express();
 const port = 3000;
 
-DB_URL =
-  "mongodb+srv://abhisheksinghc84:OBVfQch6jNCBvTKZ@cluster0.jkkpgsi.mongodb.net/";
+const db = process.env.DB_URL;
 
-mongoose.connect(DB_URL);
+mongoose.connect(db);
 const conn = mongoose.connection;
 
 conn.once("open", () => {
