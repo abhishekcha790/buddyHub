@@ -22,38 +22,38 @@ function LeftSideLogin() {
           id="carouselExampleDark"
           className="carousel carousel-dark slide text-center"
         >
-          <h1 style={{ marginBottom: "2rem" }}>Sign Up</h1>
+          <h1 style={{ marginBottom: "1rem" ,marginTop:"1rem"}}>Sign Up</h1>
           <div className="carousel-inner">
             <div className="carousel-item active" data-bs-interval="10000">
               <img
                 src={guitar}
-                className="mx-auto mb-2"
-                style={{ width: "100px" }}
+                className="ml-4"
+                style={{ marginTop:"5rem" ,marginLeft: "1.4rem", width: "100px" }}
                 alt="Guitar"
               />
-              <p className="small" style={{ marginTop: "8rem" }}>
+              <p className="small" style={{ marginTop: "4rem" }}>
                 Some placeholder content for the first slide.
               </p>
             </div>
             <div className="carousel-item" data-bs-interval="2000">
               <img
                 src={work}
-                className="mx-auto mb-2"
-                style={{ width: "100px" }}
+                className=" mb-2"
+                style={{ width: "125px",marginTop:"5rem "}}
                 alt="Work"
               />
-              <p className="small" style={{ marginTop: "8rem" }}>
+              <p className="small" style={{ marginTop: "2rem" }}>
                 Some placeholder content for the second slide.
               </p>
             </div>
             <div className="carousel-item">
               <img
                 src={motorcycle}
-                className="mx-auto mb-2"
-                style={{ width: "100px" }}
+                className=" mb-2"
+                style={{ width: "120px" , height:"125px",marginTop: "5rem" }}
                 alt="Motorcycle"
               />
-              <p className="small" style={{ marginTop: "8rem" }}>
+              <p className="small" style={{ marginTop: "2rem" }}>
                 Some placeholder content for the third slide.
               </p>
             </div>
