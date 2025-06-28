@@ -6,9 +6,9 @@ import RightSideLogin from "./RightSideLogin";
 function Login() {
   return (
     <div>
-      <Header />
+      {/* <Header /> */}
+     {/* <LeftSideLogin/> */}
      <RightSideLogin />
-     <LeftSideLogin/>
     </div>
   );
 }

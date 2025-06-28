@@ -1,7 +1,9 @@
+import RightUpper from "./RightUpper";
+
 function RightSideLogin(){
     return(
-        <div>
-            Right side
+        <div >
+            <RightUpper/>
         </div>
     )
 }
