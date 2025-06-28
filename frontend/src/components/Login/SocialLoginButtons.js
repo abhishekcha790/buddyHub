@@ -6,7 +6,7 @@ function SocialLoginButtons() {
     <>
       <div
         style={{
-          width: "420px",
+          width: "450px",
           height: "170px",
           overflow: "hidden",
           borderRadius: "10px",
@@ -29,7 +29,7 @@ function SocialLoginButtons() {
             }}
           >
             <img src={googleIcon} alt="Google" width="20" height="20" />
-            Login with Google
+            Sign-up with Google
           </button>
           <button
             className="btn btn-primary d-flex align-items-center"
@@ -41,7 +41,7 @@ function SocialLoginButtons() {
             }}
           >
             <img src={phoneIcon} alt="Phone" width="20" height="20" />
-            Login with Phone
+            Sign-up with Phone
           </button>
         </div>
         <p style={{ fontSize: "0.8rem", marginTop: "1rem" }}>
