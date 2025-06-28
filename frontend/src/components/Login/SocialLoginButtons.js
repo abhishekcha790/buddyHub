@@ -1,5 +1,5 @@
-import googleIcon from "../assets/google-icon.png"; // You need to add this image in your assets folder
-import phoneIcon from "../assets/phone-icon.png"; // Same for phone icon
+import googleIcon from "../assets/google-icon.png"; 
+import phoneIcon from "../assets/phone-icon.png"; 
 
 function SocialLoginButtons() {
   return (
