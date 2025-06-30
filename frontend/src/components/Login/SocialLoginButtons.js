@@ -8,13 +8,12 @@ function SocialLoginButtons() {
         style={{
           width: "450px",
           height: "170px",
-          overflow: "hidden",
+        
           borderRadius: "10px",
-          boxShadow:
-            "rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px",
-          padding: "20px",
+         
+          padding: "10px",
           backgroundColor: "#fff",
-          margin: "auto",
+          
           boxSizing: "border-box",
         }}
       >

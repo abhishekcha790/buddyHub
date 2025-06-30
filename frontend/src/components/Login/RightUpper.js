@@ -4,11 +4,11 @@ const RightUpper = () => {
   return (
     <div
       style={{
-        width: '500px',
-        border: '2px solid black',
-        margin: '200px auto 0 auto',
-        padding: '20px',
-        borderRadius: '8px',
+           width: "504px",
+    height: "260px",
+    marginTop: "-20px",
+   padding: "8px",
+    borderRadius: "8px",
       }}
     >
       {/* Heading */}
@@ -17,7 +17,7 @@ const RightUpper = () => {
           fontFamily: "'Itim', cursive",
           fontSize: '24px',
           textAlign: 'center',
-          marginBottom: '20px',
+          margin:"15px 15px",
         }}
       >
         Hey, Looking to Buy and Sell products!
@@ -79,22 +79,13 @@ const RightUpper = () => {
             borderRadius: '6px',
             fontWeight: 'bold',
             cursor: 'pointer',
-            marginBottom: '15px',
+           
           }}
         >
           Create Account
         </button>
 
-        {/* Sign In Text */}
-        <p style={{ fontSize: '14px', textAlign: 'center' }}>
-          <strong>Not on XYZ yet?</strong>{' '}
-          <a
-            href="/signin"
-            style={{ color: '#2563eb', textDecoration: 'none', fontWeight: '500' }}
-          >
-            Sign In
-          </a>
-        </p>
+        
       </form>
     </div>
   );
