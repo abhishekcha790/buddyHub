@@ -7,22 +7,19 @@ function LeftSideLogin() {
     <>
       <div
         style={{
-          width: "270px", // Set your desired width
-          height: "450px", // Set your desired height
-          overflow: "hidden", // Ensures inner content doesn't overflow
-          borderRadius: "10px", // Optional styling
-          boxShadow:
-            "rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px", // Optional shadow
-          padding: "20px", // Optional inner spacing
-          backgroundColor: "#fff", // Optional background
-          margin: "auto", // Center horizontally
+         width:"210px",
+    height: "420px",
+    padding:"4px",
+    borderRadius: "10px",
+    backgroundColor: "rgb(255, 255, 255)"
+          
         }}
       >
         <div
           id="carouselExampleDark"
           className="carousel carousel-dark slide text-center"
         >
-          <h1 style={{ marginBottom: "1rem" ,marginTop:"1rem"}}>Sign Up</h1>
+          <h1 style={{ marginBottom: "1rem" ,marginTop:"1rem"}}>excomfy</h1>
           <div className="carousel-inner">
             <div className="carousel-item active" data-bs-interval="10000">
               <img
@@ -31,7 +28,7 @@ function LeftSideLogin() {
                 style={{ marginTop:"5rem" ,marginLeft: "1.4rem", width: "100px" }}
                 alt="Guitar"
               />
-              <p className="small" style={{ marginTop: "4rem" }}>
+              <p className="small" style={{ marginTop: "4rem",fontFamily: "'Itim', cursive" }}>
                 Some placeholder content for the first slide.
               </p>
             </div>
@@ -42,7 +39,7 @@ function LeftSideLogin() {
                 style={{ width: "125px",marginTop:"5rem "}}
                 alt="Work"
               />
-              <p className="small" style={{ marginTop: "2rem" }}>
+              <p className="small" style={{ marginTop: "2rem",fontFamily: "'Itim', cursive"}}>
                 Some placeholder content for the second slide.
               </p>
             </div>
@@ -53,7 +50,7 @@ function LeftSideLogin() {
                 style={{ width: "120px" , height:"125px",marginTop: "5rem" }}
                 alt="Motorcycle"
               />
-              <p className="small" style={{ marginTop: "2rem" }}>
+              <p className="small" style={{ marginTop: "2rem",fontFamily: "'Itim', cursive"}}>
                 Some placeholder content for the third slide.
               </p>
             </div>

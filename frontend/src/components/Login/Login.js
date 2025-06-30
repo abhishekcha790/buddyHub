@@ -27,12 +27,12 @@ function Login() {
             display: "flex",
             width: "726px",
             height: "430px",
-            border: "2px solid black",
+            boxShadow: "rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px",
             borderRadius: "12px",
             overflow: "hidden",
             fontFamily: "'Poppins', sans-serif",
             backgroundColor: "#fff",
-            boxShadow: "0 4px 12px rgba(0,0,0,0.1)",
+           
           }}
         >
           {/* Left Side */}
@@ -40,8 +40,6 @@ function Login() {
             style={{
               width: "35%",
               backgroundColor: "#fff",
-              padding: "20px",
-              boxShadow: "2px 0 5px rgba(0,0,0,0.1)",
               display: "flex",
               flexDirection: "column",
               alignItems: "center",
@@ -62,7 +60,7 @@ function Login() {
               justifyContent: "space-between",
               alignItems: "center",
               borderLeft: "1px solid #e0e0e0",
-              boxSizing: "border-box",
+              // boxSizing: "border-box",
             }}
           >
             <RightUpper />
