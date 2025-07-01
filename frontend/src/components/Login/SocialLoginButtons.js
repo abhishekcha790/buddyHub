@@ -1,5 +1,5 @@
-import googleIcon from "../assets/google-icon.png"; 
-import phoneIcon from "../assets/phone-icon.png"; 
+import googleIcon from "../assets/google-icon.png";
+import phoneIcon from "../assets/phone-icon.png";
 
 function SocialLoginButtons() {
   return (
@@ -8,12 +8,12 @@ function SocialLoginButtons() {
         style={{
           width: "450px",
           height: "170px",
-        
+
           borderRadius: "10px",
-         
-          padding: "10px",
+
+          padding: "5px",
           backgroundColor: "#fff",
-          
+
           boxSizing: "border-box",
         }}
       >
@@ -43,7 +43,14 @@ function SocialLoginButtons() {
             Sign-up with Phone
           </button>
         </div>
-        <p style={{ fontSize: "0.8rem", marginTop: "1rem" }}>
+        <p
+          style={{
+            fontSize: "0.8rem",
+            marginTop: "1rem",
+            display: "flex",
+            justifyContent: "center",
+          }}
+        >
           By continuing, you agree to XYZ's{" "}
           <a href="/terms-of-use" className="text-terms-of-use">
             Terms of Use

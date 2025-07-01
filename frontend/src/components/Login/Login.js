@@ -12,7 +12,6 @@ function Login() {
         <Header />
       </div>
 
-     
       <div
         style={{
           marginTop: "100px", // Space for the fixed header
@@ -27,12 +26,12 @@ function Login() {
             display: "flex",
             width: "726px",
             height: "430px",
-            boxShadow: "rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px",
+            boxShadow:
+              "rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px",
             borderRadius: "12px",
             overflow: "hidden",
             fontFamily: "'Poppins', sans-serif",
             backgroundColor: "#fff",
-           
           }}
         >
           {/* Left Side */}
@@ -54,7 +53,7 @@ function Login() {
             style={{
               width: "65%",
               backgroundColor: "#fdfdfd",
-             padding:"20px",
+              padding: "20px",
               display: "flex",
               flexDirection: "column",
               justifyContent: "space-between",
@@ -71,11 +70,14 @@ function Login() {
                 display: "flex",
                 alignItems: "center",
                 width: "100%",
-
               }}
             >
               <hr style={{ flex: 1, borderColor: "#000" }} />
-              <span style={{ padding: "0 15px", fontSize: "12px", color: "#444" }}>Or</span>
+              <span
+                style={{ padding: "0 15px", fontSize: "12px", color: "#444" }}
+              >
+                Or
+              </span>
               <hr style={{ flex: 1, borderColor: "#000" }} />
             </div>
 
@@ -89,7 +91,3 @@ function Login() {
 }
 
 export default Login;
-
-
-
-

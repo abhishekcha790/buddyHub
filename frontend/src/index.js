@@ -3,6 +3,7 @@ import { createBrowserRouter, RouterProvider } from "react-router";
 import ReactDOM from "react-dom/client";
 import Home from "./components/Home";
 import Login from "./components/Login/Login";
+// import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 
 const router = createBrowserRouter([
   {
