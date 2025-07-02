@@ -1,7 +1,22 @@
 import googleIcon from "../assets/google-icon.png";
 import phoneIcon from "../assets/phone-icon.png";
+import { useGoogleLogin } from "@react-oauth/google";
 
 function SocialLoginButtons() {
+  const responseGoogle = async (authResult) => {
+    try {
+      if (authResult["code"]) {
+      }
+    } catch (error) {
+      console.error("Error while requesting google code :", error);
+    }
+  };
+
+  const googleHandler = useGoogleLogin({
+    onSuccess: responseGoogle,
+    onError: responseGoogle,
+    flow: "auth-code",
+  });
   return (
     <>
       <div
@@ -19,6 +34,7 @@ function SocialLoginButtons() {
       >
         <div className="d-grid gap-3 col-6 mx-auto">
           <button
+            onClick={googleHandler}
             className="btn btn-primary d-flex align-items-center"
             type="button"
             style={{
