@@ -1,6 +1,12 @@
-// const router = require("express").Router();
+const { googleLogin } = require("../controllers/authControllers");
 
-// router.get("/test", (req, res) => {
-//   res.send("test pass");
-// });
-// module.exports = router;
+const router = require("express").Router();
+
+
+router.get("/test", (req, res) => {
+  res.send("test pass");
+});
+module.exports = router;
+
+
+router.post('/google',googleLogin)
