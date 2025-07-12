@@ -1,8 +1,15 @@
 import googleIcon from "../assets/google-icon.png";
 import phoneIcon from "../assets/phone-icon.png";
+<<<<<<< HEAD
 
 
 function SocialLoginButtons() {
+=======
+import {useSharedState} from "../../context/PhoneContext"
+
+function SocialLoginButtons() {
+  const {Phone,setPhone}=useSharedState();
+>>>>>>> signup
  const CLIENT_ID = process.env.REACT_APP_CLIENT_ID;
  const REDIRECT_URI = process.env.REACT_APP_REDIRECT_URI;
 
@@ -19,7 +26,11 @@ function SocialLoginButtons() {
         <button onClick={handleGoogleSignup} className="btn btn-primary d-flex align-items-center" style={{ border: "1px solid black", justifyContent: "center", gap: "10px" }}>
           <img src={googleIcon} alt="Google" width="20" height="20" /> Sign-up with Google
         </button>
+<<<<<<< HEAD
         <button className="btn btn-primary d-flex align-items-center" style={{ border: "1px solid black", justifyContent: "center", gap: "10px" }}>
+=======
+        <button className="btn btn-primary d-flex align-items-center" onClick={()=>setPhone(true)} style={{ border: "1px solid black", justifyContent: "center", gap: "10px" }}>
+>>>>>>> signup
           <img src={phoneIcon} alt="Phone" width="20" height="20" /> Sign-up with Phone
         </button>
       </div>

@@ -1,3 +1,5 @@
+import { PhoneProvider} from "./context/PhoneContext"; 
+
 import "./index.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import ReactDOM from "react-dom/client";
@@ -12,7 +14,10 @@ const router = createBrowserRouter([
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(
+
   <AuthProvider>
+    <PhoneProvider>
     <RouterProvider router={router} />
+    </PhoneProvider>
   </AuthProvider>
 );

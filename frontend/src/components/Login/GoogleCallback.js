@@ -25,4 +25,8 @@ function GoogleCallback() {
   return <p className="text-center mt-5">Logging you in...</p>;
 }
 
+<<<<<<< HEAD
 export default GoogleCallback;
+=======
+export default GoogleCallback;
+>>>>>>> signup

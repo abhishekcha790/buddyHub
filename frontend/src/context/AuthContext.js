@@ -28,4 +28,8 @@ export const AuthProvider = ({ children }) => {
   );
 };
 
+<<<<<<< HEAD
 export const useAuth = () => useContext(AuthContext);
+=======
+export const useAuth = () => useContext(AuthContext);
+>>>>>>> signup
