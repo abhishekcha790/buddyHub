@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseUrl: "http://localhost:3001/auth",
+  baseURL: "http://localhost:3001/api/auth",
 });
 
 export const googleAuth = async (code) => api.post("/google", { code });

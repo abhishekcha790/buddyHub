@@ -6,8 +6,7 @@ const UserModel = require("../models/userModel.js");
 const googleLogin = async (req, res) => {
   try {
     const { code } = req.body;
-    console.log("Received Google Code:", code);
-
+  
     const { tokens } = await oauth2Client.getToken(code);
     oauth2Client.setCredentials(tokens);
 
