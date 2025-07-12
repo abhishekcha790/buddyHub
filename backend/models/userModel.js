@@ -46,4 +46,6 @@ const userSchema = new mongoose.Schema({
 });
 
 const UserModel = mongoose.model("social-logins", userSchema);
+
 module.exports = UserModel;
+
