@@ -14,7 +14,7 @@ app.use(cors({
 }));
 
 app.use(bodyParser.json());
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT 
 
 
 app.use("/api/auth", authRoutes);
