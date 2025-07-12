@@ -3,8 +3,12 @@ import Header from "../Header";
 import LeftSideLogin from "./LeftSideLogin";
 import SocialLoginButtons from "./SocialLoginButtons";
 import RightUpper from "./RightUpper";
+import SignUpPhone from "./SignUpPhone"
+import {useSharedState} from "../../context/PhoneContext"
 
 function Login() {
+  const { Phone,setPhone} = useSharedState();
+
   return (
     <div>
       {/* Fixed Header */}
@@ -47,7 +51,6 @@ function Login() {
           >
             <LeftSideLogin />
           </div>
-
           {/* Right Side */}
           <div
             style={{
@@ -59,31 +62,37 @@ function Login() {
               justifyContent: "space-between",
               alignItems: "center",
               borderLeft: "1px solid #e0e0e0",
-              // boxSizing: "border-box",
             }}
           >
-            <RightUpper />
-
-            {/* Divider */}
-            <div
-              style={{
-                display: "flex",
-                alignItems: "center",
-                width: "100%",
-              }}
-            >
-              <hr style={{ flex: 1, borderColor: "#000" }} />
-              <span
-                style={{ padding: "0 15px", fontSize: "12px", color: "#444" }}
-              >
-                Or
-              </span>
-              <hr style={{ flex: 1, borderColor: "#000" }} />
-            </div>
-
-            {/* Social Login Buttons */}
-            <SocialLoginButtons />
+            {Phone ? (
+              <SignUpPhone />
+            ) : (
+              <>
+                <RightUpper />
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    width: "100%",
+                  }}
+                >
+                  <hr style={{ flex: 1, borderColor: "#000" }} />
+                  <span
+                    style={{
+                      padding: "0 15px",
+                      fontSize: "12px",
+                      color: "#444",
+                    }}
+                  >
+                    Or
+                  </span>
+                  <hr style={{ flex: 1, borderColor: "#000" }} />
+                </div>
+                <SocialLoginButtons />
+              </>
+            )}
           </div>
+
         </div>
       </div>
     </div>

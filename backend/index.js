@@ -1,8 +1,23 @@
 const express = require("express");
+const bodyParser = require('body-parser');
+const cors = require('cors');
 require("dotenv").config();
+require('./models/dbConnection.js');
+const authRoutes = require("./routes/authRouter");
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+
+
+app.use(cors({
+  origin: "http://localhost:3001", 
+  credentials: true
+}));
+
+app.use(bodyParser.json());
+const PORT = process.env.PORT || 3002;
+
+
+app.use("/api/auth", authRoutes);
 
 app.get("/", (req, res) => {
   res.send("Hello world");
