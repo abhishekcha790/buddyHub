@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { googleAuth } from "../../api";
-import { useAuth } from "../../context/AuthContext";
+import { useAuth } from "../../Context/AuthContext";
 
 function GoogleCallback() {
   const [params] = useSearchParams();
@@ -25,8 +25,4 @@ function GoogleCallback() {
   return <p className="text-center mt-5">Logging you in...</p>;
 }
 
-<<<<<<< HEAD
 export default GoogleCallback;
-=======
-export default GoogleCallback;
->>>>>>> signup

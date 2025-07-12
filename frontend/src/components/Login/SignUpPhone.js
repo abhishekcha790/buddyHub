@@ -23,7 +23,7 @@ const SignUpPhone = () => {
 
 
   try {
-    const response = await axios.post('http://localhost:3002/api/auth/verify-otp', {
+    const response = await axios.post('http://localhost:3001/api/auth/verify-otp', {
       phone: `+91${Call_No}`,
       otp,
     });
@@ -54,7 +54,7 @@ const SignUpPhone = () => {
 
     try {
       console.log("start sending");
-      const response = await axios.post('http://localhost:3002/api/auth/send-otp', {
+      const response = await axios.post('http://localhost:3001/api/auth/send-otp', {
         phone: `+91${Call_No}`
       });
       console.log(response.data);
