@@ -1,56 +1,26 @@
+// src/components/Login/RightUpper.js
 import React from "react";
 import Arrow from "../assets/arrow1.png";
+
 const RightUpper = () => {
   return (
-    <div
-      style={{
-        width: "504px",
-        height: "260px",
-        marginTop: "-20px",
-        padding: "8px",
-        borderRadius: "8px",
-      }}
-    >
-      {/* Heading */}
-      <h4
-        style={{
-          fontFamily: "'Itim', cursive",
-          fontSize: "24px",
-          textAlign: "center",
-          margin: "15px 15px",
-        }}
-      >
+    <div className="w-100" style={{ maxWidth: "500px" }}>
+      <h4 className="text-center mb-4" style={{ fontFamily: "'Itim', cursive", fontSize: "clamp(20px, 4vw, 24px)" }}>
         Hey, Looking to Buy and Sell products!
       </h4>
 
-      {/* Form */}
-      <form
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-        }}
-      >
-        {/* Email Input */}
-
-        <div
-          style={{ position: "relative", width: "400px", marginBottom: "15px" }}
-        >
+      <form className="d-flex flex-column align-items-center">
+        <div className="position-relative w-100 mb-3" style={{ maxWidth: "400px" }}>
           <input
             type="email"
+            className="form-control"
             placeholder="Enter your Email / Phone Number"
-            style={{
-              width: "100%",
-              padding: "10px 40px 10px 15px", // Extra right padding for the image
-              border: "1px solid black",
-              borderRadius: "6px",
-            }}
           />
           <img
             src={Arrow}
             alt="arrow"
+            className="position-absolute"
             style={{
-              position: "absolute",
               right: "10px",
               top: "50%",
               transform: "translateY(-50%)",
@@ -61,43 +31,18 @@ const RightUpper = () => {
           />
         </div>
 
-        {/* OTP Input */}
         <input
           type="text"
+          className="form-control mb-3"
           placeholder="Enter OTP"
-          style={{
-            width: "400px",
-            padding: "10px 40px 10px 15px",
-            border: "1px solid black",
-            borderRadius: "6px",
-            marginBottom: "20px",
-          }}
+          style={{ maxWidth: "400px" }}
         />
 
-        {/* Submit Button */}
-        <button
-          className="btn btn-primary d-flex align-items-center justify-content-center"
-          type="submit"
-          style={{
-            width: "200px",
-            padding: "8px",
-            border: "1px solid black",
-            color: "#fff",
-            borderRadius: "6px",
-            fontWeight: "bold",
-            cursor: "pointer",
-          }}
-        >
+        <button className="btn btn-primary w-100 mb-2" style={{ maxWidth: "200px" }}>
           Login
         </button>
 
-        <p
-          style={{
-            fontSize: "0.8rem",
-            marginTop: "9px",
-            marginBottom: "0.8rem",
-          }}
-        >
+        <p className="extra-small-text text-center mb-0">
           If you are a new user, please login using one of the options below.
         </p>
       </form>

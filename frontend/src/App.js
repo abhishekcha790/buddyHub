@@ -1,5 +1,5 @@
 import { Routes, Route } from "react-router-dom";
-import Header from "./components/Header";
+import Header from "./components/Header/Header.js";
 import Home from "./components/Home";
 import Login from "./components/Login/Login";
 import GoogleCallback from "./components/Login/GoogleCallback.js";

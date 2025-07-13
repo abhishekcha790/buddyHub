@@ -1,3 +1,4 @@
+// src/components/Login/SignUpPhone.js
 import React, { useState } from 'react';
 import axios from 'axios';
 import Arrow from "../assets/arrow1.png";
@@ -13,216 +14,139 @@ const SignUpPhone = () => {
   const [otpSent, setOtpSent] = useState(false);
   const [otpCooldown, setOtpCooldown] = useState(false);
   const [otpError, setOtpError] = useState("");
- 
 
   const navigate = useNavigate();
 
- const verify_Otp = async (Call_No, otp) => {
-  setVerifying(true);
-  setOtpError("");
+  const verify_Otp = async (Call_No, otp) => {
+    setVerifying(true);
+    setOtpError("");
 
+    try {
+      const response = await axios.post('http://localhost:3001/api/auth/verify-otp', {
+        phone: `+91${Call_No}`,
+        otp,
+      });
 
-  try {
-    const response = await axios.post('http://localhost:3001/api/auth/verify-otp', {
-      phone: `+91${Call_No}`,
-      otp,
-    });
-
-    if (response.data.success) {
-      setTimeout(() => {
-        navigate("/"); 
-      }, 1000);
-    } else {
-      setOtpError("❌ OTP verification failed.");
+      if (response.data.success) {
+        setTimeout(() => {
+          navigate("/");
+        }, 1000);
+      } else {
+        setOtpError("❌ OTP verification failed.");
+      }
+    } catch (error) {
+      const errMsg = error.response?.data?.message || "OTP verification failed.";
+      setOtpError(`❌ ${errMsg}`);
+    } finally {
+      setVerifying(false);
     }
-
-    return response.data;
-  } catch (error) {
-    const errMsg = error.response?.data?.message || "OTP verification failed.";
-    setOtpError(`❌ ${errMsg}`);
-    return { success: false };
-  } finally {
-    setVerifying(false);
-  }
-};
-
+  };
 
   const send_Otp = async (Call_No) => {
     setSendAttempted(true);
-     setOtpSent(false); 
+    setOtpSent(false);
     if (Call_No.length !== 10 || otpCooldown) return;
 
     try {
-      console.log("start sending");
       const response = await axios.post('http://localhost:3001/api/auth/send-otp', {
         phone: `+91${Call_No}`
       });
-      console.log(response.data);
-      if (response.data.success) {
-      setOtpSent(true);
-      setOtpCooldown(true); // 🧊 Start cooldown
 
-      // 🔁 Reset cooldown after 30 seconds (you can increase if needed)
-      setTimeout(() => {
-        setOtpCooldown(false);
-        setOtpSent(false); // Optional: clear success message after cooldown
-      }, 30000);
-    }
-      return response.data;
+      if (response.data.success) {
+        setOtpSent(true);
+        setOtpCooldown(true);
+        setTimeout(() => {
+          setOtpCooldown(false);
+          setOtpSent(false);
+        }, 30000);
+      }
     } catch (error) {
       console.error(error);
-      return { success: false, message: "Failed to send OTP." };
     }
   };
 
   return (
-    <div
-      style={{
-        width: "488px",
-        height: "auto",
-        margin: "-24px",
-        padding: "48px",
-        borderRadius: "8px",
-      }}
-    >
-      <h4
-        style={{
-          fontFamily: "'Itim', cursive",
-          fontSize: "24px",
-          textAlign: "center",
-          margin: "20px 20px",
-        }}
-      >
+    <div className="w-100 px-4" style={{ maxWidth: "500px" }}>
+      <h4 className="text-center mb-4" style={{ fontFamily: "'Itim', cursive", fontSize: "clamp(20px, 4vw, 24px)" }}>
         SignUp using Phone no.
       </h4>
 
-      <form
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-        }}
-      >
-        {/* Phone Input */}
-        <div style={{ position: "relative", width: "400px", marginBottom: "5px" }}>
+      <form className="d-flex flex-column align-items-center">
+        <div className="position-relative w-100 mb-2" style={{ maxWidth: "400px" }}>
           <input
-            type="text"  
-            inputMode="numeric"  // opens number pad on mobile
-            pattern="[0-9]*" 
+            type="text"
+            inputMode="numeric"
+            pattern="[0-9]*"
+            className="form-control"
             placeholder="Enter your Phone Number"
             value={Call_No}
-            onChange={(e) => {
-              const value = e.target.value.replace(/\D/g, ''); // remove all non-digits
-               setCall_No(value);
-              }}
+            onChange={(e) => setCall_No(e.target.value.replace(/\D/g, ''))}
             onBlur={() => setTouched(true)}
-            style={{
-              width: "100%",
-              padding: "10px 40px 10px 15px",
-              border: "1px solid black",
-              borderRadius: "6px",
-            }}
           />
           <img
             src={Arrow}
             alt="arrow"
-             onClick={() => {
+            onClick={() => {
               if (!otpCooldown && Call_No.length === 10) {
-              send_Otp(Call_No);
+                send_Otp(Call_No);
               }
-             }}
-           style={{
-            position: "absolute",
-            right: "10px",
-            top: "50%",
-            transform: "translateY(-50%)",
-            width: "30px",
-            height: "30px",
-            cursor: otpCooldown ? "not-allowed" : "pointer",
-            opacity: otpCooldown ? 0.5 : 1,
-          }}
+            }}
+            className="position-absolute"
+            style={{
+              right: "10px",
+              top: "50%",
+              transform: "translateY(-50%)",
+              width: "30px",
+              height: "30px",
+              cursor: otpCooldown ? "not-allowed" : "pointer",
+              opacity: otpCooldown ? 0.5 : 1,
+            }}
           />
         </div>
-         {otpCooldown && (
-       <p style={{ color: 'orange', fontSize: '14px', marginTop: '5px' }}>
-        Please wait 30 seconds sending another OTP.
-       </p>
-       )}
 
-{otpSent && !otpCooldown && (
-  <p style={{ color: 'green', fontSize: '14px', marginTop: '5px' }}>
-    ✅ OTP sent successfully!
-  </p>
-)}
-
-
-
-        {/* Error Message */}
-        {(touched || sendAttempted) && Call_No.length > 0 && Call_No.length < 10 && (
-          <p style={{
-            color: 'red',
-            fontSize: '14px',
-            marginTop: '3px',
-            marginBottom: '12px',
-            fontWeight: '500'
-          }}>
-            Enter a valid 10-digit phone number
-          </p>
+        {otpCooldown && (
+          <p className="text-warning small">Please wait 30 seconds before sending another OTP.</p>
         )}
 
-        {/* OTP Input */}
+        {otpSent && !otpCooldown && (
+          <p className="text-success small">✅ OTP sent successfully!</p>
+        )}
+
+        {(touched || sendAttempted) && Call_No.length > 0 && Call_No.length < 10 && (
+          <p className="text-danger small">Enter a valid 10-digit phone number</p>
+        )}
+
         <input
-  type="text"
-  placeholder="Enter OTP"
-  value={otp}
-  onChange={(e) => setOtp(e.target.value)}
-  onBlur={() => setOtpTouched(true)}
-  style={{
-    width: "400px",
-    padding: "10px 40px 10px 15px",
-    border: "1px solid black",
-    borderRadius: "6px",
-    marginBottom: "5px",
-  }}
-/>
+          type="text"
+          className="form-control mt-2"
+          placeholder="Enter OTP"
+          value={otp}
+          onChange={(e) => setOtp(e.target.value)}
+          onBlur={() => setOtpTouched(true)}
+          style={{ maxWidth: "400px" }}
+        />
 
-{otpTouched && otp.length !== 6 && (
-  <p style={{ color: 'red', fontSize: '14px', marginBottom: '15px' }}>
-    Enter a valid 6-digit OTP
-  </p>
-)}
-{otpError && <p style={{ color: 'red', marginTop: '5px' }}>{otpError}</p>}
+        {otpTouched && otp.length !== 6 && (
+          <p className="text-danger small">Enter a valid 6-digit OTP</p>
+        )}
 
+        {otpError && <p className="text-danger small mt-1">{otpError}</p>}
 
-
-        {/* Submit Button */}
         <button
-  className="btn btn-primary d-flex align-items-center justify-content-center"
-  type="button"
-  disabled={verifying || otp.length !== 6}
-  onClick={() => verify_Otp(Call_No, otp)}
-  style={{
-    width: "200px",
-    padding: "8px",
-    border: "1px solid black",
-    color: "#fff",
-    borderRadius: "6px",
-    fontWeight: 'bold',
-    cursor: verifying ? "not-allowed" : "pointer",
-    backgroundColor: verifying ? "#888" : "#007bff",
-    transition: "all 0.3s ease",
-  }}
->
-  {verifying ? "Verifying OTP..." : "Create Account"}
-</button>
+          type="button"
+          disabled={verifying || otp.length !== 6}
+          onClick={() => verify_Otp(Call_No, otp)}
+          className={`btn w-100 mt-3 ${verifying ? 'btn-secondary' : 'btn-primary'}`}
+          style={{ maxWidth: "200px" }}
+        >
+          {verifying ? "Verifying OTP..." : "Create Account"}
+        </button>
 
-
-
-        <p style={{ fontSize: "0.8rem", marginTop: "9px", marginBottom: "0.8rem" }}>
-          Already have an account ? <a href="/login">Log In</a>
+        <p className="small text-center mt-3">
+          Already have an account? <a href="/login">Log In</a>
         </p>
-        <p style={{ marginTop: "60px", fontSize: "x-small" }}>
-          By continuing, you agree to Excompfy's Terms of Use and Privacy Policy.
+        <p className="text-muted text-center" style={{ fontSize: "0.7rem" }}>
+          By continuing, you agree to Excomfy's Terms of Use and Privacy Policy.
         </p>
       </form>
     </div>

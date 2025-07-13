@@ -1,15 +1,14 @@
+// src/components/Login/SocialLoginButtons.js
+import React from "react";
 import googleIcon from "../assets/google-icon.png";
 import phoneIcon from "../assets/phone-icon.png";
-import {useSharedState} from "../../Context/PhoneContext"
-
+import { useSharedState } from "../../Context/PhoneContext";
 
 function SocialLoginButtons() {
+  const { setPhone } = useSharedState();
 
- const {Phone,setPhone}=useSharedState();
-
- const CLIENT_ID = process.env.REACT_APP_CLIENT_ID;
- const REDIRECT_URI = process.env.REACT_APP_REDIRECT_URI;
-
+  const CLIENT_ID = process.env.REACT_APP_CLIENT_ID;
+  const REDIRECT_URI = process.env.REACT_APP_REDIRECT_URI;
 
   const handleGoogleSignup = () => {
     const scope = "openid email profile";
@@ -18,17 +17,27 @@ function SocialLoginButtons() {
   };
 
   return (
-    <div style={{ width: "450px", height: "170px", borderRadius: "10px", padding: "5px", backgroundColor: "#fff", boxSizing: "border-box" }}>
-      <div className="d-grid gap-3 col-6 mx-auto">
-        <button onClick={handleGoogleSignup} className="btn btn-primary d-flex align-items-center" style={{ border: "1px solid black", justifyContent: "center", gap: "10px" }}>
-          <img src={googleIcon} alt="Google" width="20" height="20" /> Sign-up with Google
+    <div className="w-100 text-center" style={{ maxWidth: "450px" }}>
+      <div className="d-grid gap-3">
+        <button
+          onClick={handleGoogleSignup}
+          className="btn btn-outline-primary d-flex align-items-center justify-content-center gap-2"
+        >
+          <img src={googleIcon} alt="Google" width="20" height="20" />
+          Sign-up with Google
         </button>
-        <button className="btn btn-primary d-flex align-items-center" onClick={()=>setPhone(true)} style={{ border: "1px solid black", justifyContent: "center", gap: "10px" }}>
-          <img src={phoneIcon} alt="Phone" width="20" height="20" /> Sign-up with Phone
+
+        <button
+          className="btn btn-outline-secondary d-flex align-items-center justify-content-center gap-2"
+          onClick={() => setPhone(true)}
+        >
+          <img src={phoneIcon} alt="Phone" width="20" height="20" />
+          Sign-up with Phone
         </button>
       </div>
-      <p style={{ fontSize: "0.8rem", marginTop: "1rem", display: "flex", justifyContent: "center" }}>
-        By continuing, you agree to XYZ's <a href="/terms-of-use" className="text-terms-of-use">Terms of Use</a> and <a href="/privacy-policy" className="text-privacy-policy">Privacy Policy</a>.
+
+      <p className="small mt-3">
+        By continuing, you agree to <span className="fw-semibold">Excomfy's</span> <a href="/terms-of-use">Terms of Use</a> and <a href="/privacy-policy">Privacy Policy</a>.
       </p>
     </div>
   );

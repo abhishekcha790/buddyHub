@@ -1,3 +1,4 @@
+// src/components/Login/LeftSideLogin.js
 import React, { useEffect } from "react";
 import guitar from "../assets/guitar.png";
 import motorcycle from "../assets/motorcycle.png";
@@ -15,42 +16,24 @@ function LeftSideLogin() {
   }, []);
 
   return (
-    <div
-      style={{
-        width: "210px",
-        height: "420px",
-        padding: "4px",
-        borderRadius: "10px",
-        backgroundColor: "rgb(255, 255, 255)",
-      }}
-    >
+    <div className="w-100 px-3 py-4">
       <div
         id="carouselExampleDark"
         className="carousel carousel-dark slide text-center"
         data-bs-ride="carousel"
         data-bs-interval="2000"
       >
-        <h1 style={{ marginBottom: "1rem", marginTop: "1rem" }}>excomfy</h1>
+       <h1 className="mb-5 mt-0 fs-4 d-none d-md-block">excomfy</h1>
 
         <div className="carousel-inner">
           <div className="carousel-item active">
             <img
               src={guitar}
-              className="ml-4"
-              style={{
-                marginTop: "5rem",
-                marginLeft: "1.4rem",
-                width: "100px",
-              }}
+              className="mx-auto d-block"
+              style={{ width: "110px", marginTop: "2rem" }}
               alt="Guitar"
             />
-            <p
-              className="small"
-              style={{
-                marginTop: "4rem",
-                fontFamily: "'Itim', cursive",
-              }}
-            >
+            <p className="small mt-4" style={{ fontFamily: "'Itim', cursive" }}>
               Want to upgrade?
               <br />
               First sell your old one.
@@ -60,18 +43,13 @@ function LeftSideLogin() {
           <div className="carousel-item">
             <img
               src={work}
-              className="mb-2"
-              style={{ width: "125px", marginTop: "5rem" }}
+              className="mx-auto d-block"
+              style={{  width: "110px", marginTop: "2rem" }}
               alt="Work"
             />
-            <p
-              className="small"
-              style={{
-                marginTop: "2rem",
-                fontFamily: "'Itim', cursive",
-              }}
-            >
-              Want to buy it ?<br />
+            <p className="small mt-4" style={{ fontFamily: "'Itim', cursive" }}>
+              Want to buy it?
+              <br />
               Grab it from here!
             </p>
           </div>
@@ -79,28 +57,18 @@ function LeftSideLogin() {
           <div className="carousel-item">
             <img
               src={motorcycle}
-              className="mb-2"
-              style={{
-                width: "120px",
-                height: "125px",
-                marginTop: "5rem",
-              }}
+              className="mx-auto d-block"
+              style={{  width: "110px", marginTop: "2rem" }}
               alt="Motorcycle"
             />
-            <p
-              className="small"
-              style={{
-                marginTop: "2rem",
-                fontFamily: "'Itim', cursive",
-              }}
-            >
-              Seal the deal without stepping outside.
+            <p className="small mt-4" style={{ fontFamily: "'Itim', cursive" }}>
+              Seal the deal without <br />
+               stepping outside.
             </p>
           </div>
         </div>
 
-        {/* Indicators below the text */}
-        <div className="carousel-indicators position-static mt-2">
+        <div className="carousel-indicators position-static mt-4">
           <button
             type="button"
             data-bs-target="#carouselExampleDark"
@@ -123,17 +91,13 @@ function LeftSideLogin() {
           ></button>
         </div>
 
-        {/* Controls */}
         <button
           className="carousel-control-prev"
           type="button"
           data-bs-target="#carouselExampleDark"
           data-bs-slide="prev"
         >
-          <span
-            className="carousel-control-prev-icon"
-            aria-hidden="true"
-          ></span>
+          <span className="carousel-control-prev-icon" aria-hidden="true"></span>
           <span className="visually-hidden">Previous</span>
         </button>
         <button
@@ -142,10 +106,7 @@ function LeftSideLogin() {
           data-bs-target="#carouselExampleDark"
           data-bs-slide="next"
         >
-          <span
-            className="carousel-control-next-icon"
-            aria-hidden="true"
-          ></span>
+          <span className="carousel-control-next-icon" aria-hidden="true"></span>
           <span className="visually-hidden">Next</span>
         </button>
       </div>

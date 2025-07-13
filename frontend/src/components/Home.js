@@ -1,8 +1,7 @@
-import Header from "./Header";
 
 function Home() {
   return (
-    <div>
+    <div className="text-center mt-5">
       Welcome to Home..
     
     </div>
