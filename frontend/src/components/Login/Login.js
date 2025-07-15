@@ -19,11 +19,11 @@ function Login() {
 
       <div className="container d-flex justify-content-center align-items-center" style={{ minHeight: "100vh", paddingTop: "10px",marginTop:"-50px" }}>
         <div className="row shadow rounded overflow-hidden bg-white w-100" style={{ maxWidth: "750px" }}>
-          <div className="col-12 col-md-5 d-flex justify-content-center align-items-center bg-white border-end">
+          <div className="col-12 col-md-4 d-flex justify-content-center align-items-center bg-white border-end">
             <LeftSideLogin />
           </div>
 
-          <div className="col-12 col-md-7 d-flex flex-column align-items-center p-3 bg-light">
+          <div className="col-12 col-md-8 d-flex flex-column align-items-center p-3 bg-light">
             {Phone ? (
               <SignUpPhone />
             ) : (

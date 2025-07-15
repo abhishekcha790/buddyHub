@@ -21,14 +21,14 @@ function SocialLoginButtons() {
       <div className="d-grid gap-3">
         <button
           onClick={handleGoogleSignup}
-          className="btn btn-outline-primary d-flex align-items-center justify-content-center gap-2"
+          className="btn btn-outline-primary d-flex align-items-center justify-content-center gap-2 short-button mx-auto"
         >
           <img src={googleIcon} alt="Google" width="20" height="20" />
           Sign-up with Google
         </button>
 
         <button
-          className="btn btn-outline-secondary d-flex align-items-center justify-content-center gap-2"
+          className="btn btn-outline-primary  d-flex align-items-center justify-content-center gap-2 short-button mx-auto"
           onClick={() => setPhone(true)}
         >
           <img src={phoneIcon} alt="Phone" width="20" height="20" />

@@ -5,7 +5,7 @@ import Arrow from "../assets/arrow1.png";
 const RightUpper = () => {
   return (
     <div className="w-100" style={{ maxWidth: "500px" }}>
-      <h4 className="text-center mb-4" style={{ fontFamily: "'Itim', cursive", fontSize: "clamp(20px, 4vw, 24px)" }}>
+      <h4 className="text-center mb-4" style={{ fontSize: "clamp(18px, 4vw, 23px)" }}>
         Hey, Looking to Buy and Sell products!
       </h4>
 

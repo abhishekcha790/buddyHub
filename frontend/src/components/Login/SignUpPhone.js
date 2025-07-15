@@ -1,5 +1,4 @@
-// src/components/Login/SignUpPhone.js
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Arrow from "../assets/arrow1.png";
 import { useNavigate } from 'react-router-dom';
@@ -11,11 +10,21 @@ const SignUpPhone = () => {
   const [sendAttempted, setSendAttempted] = useState(false);
   const [verifying, setVerifying] = useState(false);
   const [otpTouched, setOtpTouched] = useState(false);
-  const [otpSent, setOtpSent] = useState(false);
-  const [otpCooldown, setOtpCooldown] = useState(false);
   const [otpError, setOtpError] = useState("");
+  const [countdown, setCountdown] = useState(0);
+  const [showResendBox, setShowResendBox] = useState(false);
 
   const navigate = useNavigate();
+
+  useEffect(() => {
+    let timer;
+    if (countdown > 0) {
+      timer = setTimeout(() => {
+        setCountdown(prev => prev - 1);
+      }, 1000);
+    }
+    return () => clearTimeout(timer);
+  }, [countdown]);
 
   const verify_Otp = async (Call_No, otp) => {
     setVerifying(true);
@@ -32,11 +41,11 @@ const SignUpPhone = () => {
           navigate("/");
         }, 1000);
       } else {
-        setOtpError("❌ OTP verification failed.");
+        setOtpError(" OTP verification failed.");
       }
     } catch (error) {
       const errMsg = error.response?.data?.message || "OTP verification failed.";
-      setOtpError(`❌ ${errMsg}`);
+      setOtpError(` ${errMsg}`);
     } finally {
       setVerifying(false);
     }
@@ -44,8 +53,7 @@ const SignUpPhone = () => {
 
   const send_Otp = async (Call_No) => {
     setSendAttempted(true);
-    setOtpSent(false);
-    if (Call_No.length !== 10 || otpCooldown) return;
+    if (Call_No.length !== 10) return;
 
     try {
       const response = await axios.post('http://localhost:3001/api/auth/send-otp', {
@@ -53,12 +61,8 @@ const SignUpPhone = () => {
       });
 
       if (response.data.success) {
-        setOtpSent(true);
-        setOtpCooldown(true);
-        setTimeout(() => {
-          setOtpCooldown(false);
-          setOtpSent(false);
-        }, 30000);
+        setShowResendBox(true);
+        setCountdown(30); // start 30s countdown
       }
     } catch (error) {
       console.error(error);
@@ -72,7 +76,7 @@ const SignUpPhone = () => {
       </h4>
 
       <form className="d-flex flex-column align-items-center">
-        <div className="position-relative w-100 mb-2" style={{ maxWidth: "400px" }}>
+        <div className="position-relative w-100 mb-1" style={{ maxWidth: "400px" }}>
           <input
             type="text"
             inputMode="numeric"
@@ -83,11 +87,12 @@ const SignUpPhone = () => {
             onChange={(e) => setCall_No(e.target.value.replace(/\D/g, ''))}
             onBlur={() => setTouched(true)}
           />
+
           <img
             src={Arrow}
             alt="arrow"
             onClick={() => {
-              if (!otpCooldown && Call_No.length === 10) {
+              if (Call_No.length === 10 && countdown === 0) {
                 send_Otp(Call_No);
               }
             }}
@@ -98,18 +103,27 @@ const SignUpPhone = () => {
               transform: "translateY(-50%)",
               width: "30px",
               height: "30px",
-              cursor: otpCooldown ? "not-allowed" : "pointer",
-              opacity: otpCooldown ? 0.5 : 1,
+              cursor: countdown > 0 ? "not-allowed" : "pointer",
+              opacity: countdown > 0 ? 0.5 : 1,
             }}
           />
         </div>
 
-        {otpCooldown && (
-          <p className="text-warning small">Please wait 30 seconds before sending another OTP.</p>
-        )}
-
-        {otpSent && !otpCooldown && (
-          <p className="text-success small">✅ OTP sent successfully!</p>
+        {/* Inline warning below input, right aligned */}
+        {showResendBox && (
+          <div className="w-100 mb-2 d-flex justify-content-end" style={{ maxWidth: "400px" }}>
+            {countdown > 0 ? (
+              <p className="text-muted small mb-0">Not received your code? {countdown}s</p>
+            ) : (
+              <p
+                className="text-primary small mb-0"
+                style={{ cursor: "pointer", textDecoration: "underline" }}
+                onClick={() => send_Otp(Call_No)}
+              >
+               Resend
+              </p>
+            )}
+          </div>
         )}
 
         {(touched || sendAttempted) && Call_No.length > 0 && Call_No.length < 10 && (
@@ -145,8 +159,8 @@ const SignUpPhone = () => {
         <p className="small text-center mt-3">
           Already have an account? <a href="/login">Log In</a>
         </p>
-        <p className="text-muted text-center" style={{ fontSize: "0.7rem" }}>
-          By continuing, you agree to Excomfy's Terms of Use and Privacy Policy.
+        <p className="extra-small-text text-center mt-0">
+          By continuing, you agree to <span className="fw-semibold">Excomfy's</span> <a href="/terms-of-use">Terms of Use</a> and <a href="/privacy-policy">Privacy Policy</a>.
         </p>
       </form>
     </div>
