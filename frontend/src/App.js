@@ -1,5 +1,6 @@
 import { Routes, Route } from "react-router-dom";
 import Header from "./components/Header/Header.js";
+import CategoryBar from "./components/Header/CategoryBar.js"
 import Home from "./components/Home";
 import Login from "./components/Login/Login";
 import GoogleCallback from "./components/Login/GoogleCallback.js";
@@ -9,6 +10,7 @@ function App() {
   return (
     <>
       <Header />
+      <CategoryBar />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />

@@ -1,10 +1,10 @@
 function SearchBar() {
   return (
-    <div className="flex-grow-1 px-4">
-      <div className="position-relative" style={{ maxWidth: "500px" }}>
+    <div className="px-md-4 w-100">
+      <div className="position-relative" style={{ maxWidth: "70%" }}>
         <input
           type="text"
-          className="form-control ps-5"
+          className="form-control ps-5 w-100"
           placeholder="Search for study table, kettle, iPhone"
           style={{ borderRadius: "8px" }}
         />

@@ -1,10 +1,11 @@
+import "./Home.css"
 
 function Home() {
   return (
-    <div className="text-center mt-5">
-      Welcome to Home..
-    
-    </div>
+   <div className="bg-grey d-flex align-items-center justify-content-center" style={{ minHeight: "100vh" }}>
+  Welcome to Home..
+</div>
+
   );
 }
 

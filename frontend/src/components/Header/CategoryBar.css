@@ -1,0 +1,42 @@
+/* Outer wrapper with light grey background and spacing below header */
+.category-bar-wrapper {
+  background-color: #f5f5f5; /* Light grey */
+  margin-top: 8px; /* Space below header */
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.category-container {
+  width: 100%;                 /* Wider than default */
+  max-width: 1500px;           /* Optional cap */
+  white-space: nowrap;
+  overflow-x: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+
+.category-container::-webkit-scrollbar {
+  display: none;
+}
+
+/* Buttons */
+.category-btn {
+  font-size: 14px;
+  padding: 6px 14px;
+  border-radius: 20px;
+  background-color: white;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.border-category {
+  border: 1px solid #f5a623;
+  color: #f5a623;
+}
+
+.active-category {
+  background-color: #f5a623;
+  color: white;
+  border: 1px solid transparent;
+}
