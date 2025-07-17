@@ -2,19 +2,24 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Arrow from "../assets/arrow1.png";
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../../Context/AuthContext';
+
+const ERROR_MESSAGES = {
+  INVALID_PHONE: "Enter a valid 10-digit phone number",
+  INVALID_OTP: "Enter a valid 6-digit OTP",
+};
 
 const SignUpPhone = () => {
   const [Call_No, setCall_No] = useState("");
   const [otp, setOtp] = useState("");
-  const [touched, setTouched] = useState(false);
-  const [sendAttempted, setSendAttempted] = useState(false);
-  const [verifying, setVerifying] = useState(false);
-  const [otpTouched, setOtpTouched] = useState(false);
   const [otpError, setOtpError] = useState("");
   const [countdown, setCountdown] = useState(0);
   const [showResendBox, setShowResendBox] = useState(false);
+  const [verifying, setVerifying] = useState(false);
+  const [sendAttempted, setSendAttempted] = useState(false);
 
   const navigate = useNavigate();
+  const { loginWithPhone } = useAuth();
 
   useEffect(() => {
     let timer;
@@ -26,46 +31,55 @@ const SignUpPhone = () => {
     return () => clearTimeout(timer);
   }, [countdown]);
 
-  const verify_Otp = async (Call_No, otp) => {
-    setVerifying(true);
+  const isValidPhone = (phone) => /^\d{10}$/.test(phone);
+  const isValidOtp = (code) => /^\d{6}$/.test(code);
+
+  const send_Otp = async () => {
+    setSendAttempted(true);
     setOtpError("");
 
+    if (!isValidPhone(Call_No)) return;
+
     try {
-      const response = await axios.post('http://localhost:3001/api/auth/verify-otp', {
+      const res = await axios.post('http://localhost:3001/api/auth/send-otp', {
+        phone: `+91${Call_No}`
+      });
+
+      if (res.data.success) {
+        setShowResendBox(true);
+        setCountdown(30);
+      }
+    } catch (error) {
+      console.error("OTP send failed", error);
+    }
+  };
+
+  const verify_Otp = async () => {
+    setOtpError("");
+
+    if (!isValidOtp(otp)) {
+      setOtpError(ERROR_MESSAGES.INVALID_OTP);
+      return;
+    }
+
+    setVerifying(true);
+
+    try {
+      const res = await axios.post('http://localhost:3001/api/auth/verify-otp', {
         phone: `+91${Call_No}`,
         otp,
       });
 
-      if (response.data.success) {
-        setTimeout(() => {
-          navigate("/");
-        }, 1000);
+      if (res.data.success) {
+        loginWithPhone();
+        navigate("/");
       } else {
-        setOtpError(" OTP verification failed.");
+        setOtpError(ERROR_MESSAGES.INVALID_OTP);
       }
     } catch (error) {
-      const errMsg = error.response?.data?.message || "OTP verification failed.";
-      setOtpError(` ${errMsg}`);
+      setOtpError(ERROR_MESSAGES.INVALID_OTP);
     } finally {
       setVerifying(false);
-    }
-  };
-
-  const send_Otp = async (Call_No) => {
-    setSendAttempted(true);
-    if (Call_No.length !== 10) return;
-
-    try {
-      const response = await axios.post('http://localhost:3001/api/auth/send-otp', {
-        phone: `+91${Call_No}`
-      });
-
-      if (response.data.success) {
-        setShowResendBox(true);
-        setCountdown(30); // start 30s countdown
-      }
-    } catch (error) {
-      console.error(error);
     }
   };
 
@@ -76,26 +90,23 @@ const SignUpPhone = () => {
       </h4>
 
       <form className="d-flex flex-column align-items-center">
+        {/* Phone Input */}
         <div className="position-relative w-100 mb-1" style={{ maxWidth: "400px" }}>
           <input
             type="text"
             inputMode="numeric"
-            pattern="[0-9]*"
             className="form-control"
             placeholder="Enter your Phone Number"
             value={Call_No}
-            onChange={(e) => setCall_No(e.target.value.replace(/\D/g, ''))}
-            onBlur={() => setTouched(true)}
+            onChange={(e) => {
+              setCall_No(e.target.value.replace(/\D/g, ''));
+              setOtpError("");
+            }}
           />
-
           <img
             src={Arrow}
             alt="arrow"
-            onClick={() => {
-              if (Call_No.length === 10 && countdown === 0) {
-                send_Otp(Call_No);
-              }
-            }}
+            onClick={countdown === 0 ? send_Otp : undefined}
             className="position-absolute"
             style={{
               right: "10px",
@@ -109,7 +120,12 @@ const SignUpPhone = () => {
           />
         </div>
 
-        {/* Inline warning below input, right aligned */}
+        {/* Phone validation message */}
+        {sendAttempted && !isValidPhone(Call_No) && (
+          <p className="text-danger small">{ERROR_MESSAGES.INVALID_PHONE}</p>
+        )}
+
+        {/* Resend countdown */}
         {showResendBox && (
           <div className="w-100 mb-2 d-flex justify-content-end" style={{ maxWidth: "400px" }}>
             {countdown > 0 ? (
@@ -118,44 +134,42 @@ const SignUpPhone = () => {
               <p
                 className="text-primary small mb-0"
                 style={{ cursor: "pointer", textDecoration: "underline" }}
-                onClick={() => send_Otp(Call_No)}
+                onClick={send_Otp}
               >
-               Resend
+                Resend
               </p>
             )}
           </div>
         )}
 
-        {(touched || sendAttempted) && Call_No.length > 0 && Call_No.length < 10 && (
-          <p className="text-danger small">Enter a valid 10-digit phone number</p>
-        )}
-
+        {/* OTP input */}
         <input
           type="text"
           className="form-control mt-2"
           placeholder="Enter OTP"
           value={otp}
-          onChange={(e) => setOtp(e.target.value)}
-          onBlur={() => setOtpTouched(true)}
+          onChange={(e) => {
+            setOtp(e.target.value.replace(/\D/g, ''));
+            setOtpError("");
+          }}
           style={{ maxWidth: "400px" }}
         />
 
-        {otpTouched && otp.length !== 6 && (
-          <p className="text-danger small">Enter a valid 6-digit OTP</p>
-        )}
-
+        {/* OTP error */}
         {otpError && <p className="text-danger small mt-1">{otpError}</p>}
 
+        {/* Submit Button */}
         <button
           type="button"
-          disabled={verifying || otp.length !== 6}
-          onClick={() => verify_Otp(Call_No, otp)}
+          disabled={verifying}
+          onClick={verify_Otp}
           className={`btn w-100 mt-3 ${verifying ? 'btn-secondary' : 'btn-primary'}`}
           style={{ maxWidth: "200px" }}
         >
           {verifying ? "Verifying OTP..." : "Create Account"}
         </button>
 
+        {/* Redirect to login */}
         <p className="small text-center mt-3">
           Already have an account? <a href="/login">Log In</a>
         </p>
