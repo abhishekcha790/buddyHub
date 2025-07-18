@@ -1,10 +1,12 @@
+import { PhoneProvider} from "./context/PhoneContext"; 
+
 import "./index.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import ReactDOM from "react-dom/client";
 import App from "./App";
 
-import { AuthProvider } from "./Context/AuthContext";
-import { PhoneProvider} from "./Context/PhoneContext"; 
+import { AuthProvider } from "./context/AuthContext";
+import { PhoneProvider} from "./context/PhoneContext"; 
 
 const router = createBrowserRouter([
   {

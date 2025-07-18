@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Arrow from "../assets/arrow1.png";
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../../Context/AuthContext';
+import { useAuth } from '../../context/AuthContext';
 
 const ERROR_MESSAGES = {
   INVALID_PHONE: "Enter a valid 10-digit phone number",
@@ -14,10 +14,11 @@ const SignUpPhone = () => {
   const [otp, setOtp] = useState("");
   const [otpError, setOtpError] = useState("");
   const [countdown, setCountdown] = useState(0);
+  const [otpTouched, setOtpTouched] = useState(false);
   const [showResendBox, setShowResendBox] = useState(false);
   const [verifying, setVerifying] = useState(false);
   const [sendAttempted, setSendAttempted] = useState(false);
-
+ 
   const navigate = useNavigate();
   const { loginWithPhone } = useAuth();
 
@@ -64,13 +65,20 @@ const SignUpPhone = () => {
 
     setVerifying(true);
 
+    if (!isValidOtp(otp)) {
+      setOtpError(ERROR_MESSAGES.INVALID_OTP);
+      return;
+    }
+
+    setVerifying(true);
+
     try {
-      const res = await axios.post('http://localhost:3001/api/auth/verify-otp', {
+      const response = await axios.post('http://localhost:3001/api/auth/verify-otp', {
         phone: `+91${Call_No}`,
         otp,
       });
 
-      if (res.data.success) {
+      if (response.data.success) {
         loginWithPhone();
         navigate("/");
       } else {
@@ -82,6 +90,8 @@ const SignUpPhone = () => {
       setVerifying(false);
     }
   };
+
+  
 
   return (
     <div className="w-100 px-4" style={{ maxWidth: "500px" }}>
@@ -120,12 +130,6 @@ const SignUpPhone = () => {
           />
         </div>
 
-        {/* Phone validation message */}
-        {sendAttempted && !isValidPhone(Call_No) && (
-          <p className="text-danger small">{ERROR_MESSAGES.INVALID_PHONE}</p>
-        )}
-
-        {/* Resend countdown */}
         {showResendBox && (
           <div className="w-100 mb-2 d-flex justify-content-end" style={{ maxWidth: "400px" }}>
             {countdown > 0 ? (
@@ -142,7 +146,10 @@ const SignUpPhone = () => {
           </div>
         )}
 
-        {/* OTP input */}
+        {(otpTouched || sendAttempted) && Call_No.length > 0 && Call_No.length < 10 && (
+          <p className="text-danger small">Enter a valid 10-digit phone number</p>
+        )}
+
         <input
           type="text"
           className="form-control mt-2"

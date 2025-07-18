@@ -9,12 +9,12 @@ const app = express();
 
 
 app.use(cors({
-  origin: "http://localhost:3000", 
+  origin: "http://localhost:3001", 
   credentials: true
 }));
 
 app.use(bodyParser.json());
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT 
 
 
 app.use("/api/auth", authRoutes);
