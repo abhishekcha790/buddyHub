@@ -2,7 +2,7 @@
 import React from "react";
 import googleIcon from "../assets/google-icon.png";
 import phoneIcon from "../assets/phone-icon.png";
-import { useSharedState } from "../../Context/PhoneContext";
+import { useSharedState } from "../../context/PhoneContext";
 
 function SocialLoginButtons() {
   const { setPhone } = useSharedState();

@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { useAuth } from "../../Context/AuthContext";
+import { useAuth } from "../../context/AuthContext";
 import plusSell from "../assets/plus.png";
 import favourite from "../assets/fav.png";
 

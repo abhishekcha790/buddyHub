@@ -5,7 +5,7 @@ import LeftSideLogin from "./LeftSideLogin";
 import SocialLoginButtons from "./SocialLoginButtons";
 import RightUpper from "./RightUpper";
 import SignUpPhone from "./SignUpPhone";
-import { useSharedState } from "../../Context/PhoneContext";
+import { useSharedState } from "../../context/PhoneContext";
 import "./Login.css";
 
 function Login() {

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Arrow from "../assets/arrow1.png";
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../../Context/AuthContext';
+import { useAuth } from '../../context/AuthContext';
 
 const ERROR_MESSAGES = {
   INVALID_PHONE: "Enter a valid 10-digit phone number",
