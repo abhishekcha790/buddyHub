@@ -1,0 +1,77 @@
+.footer {
+  background-color: #2d6cff;
+  color: white;
+  padding: 30px 20px;
+  font-size: 12px;
+}
+
+.footer-content {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 20px;
+}
+
+.footer h5 {
+  font-size: 14px;
+  margin-bottom: 12px;
+}
+
+.footer-col ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-col li {
+  margin-bottom: 6px;
+}
+
+.footer-col a {
+  text-decoration: none;
+  color: white;
+  transition: color 0.3s ease;
+}
+
+.footer-col a:hover {
+  color: #ffd700;
+}
+
+.rights {
+  margin-top: 16px;
+  font-size: 11px;
+  color: #ddd;
+}
+
+.social-icons {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 10px;
+  margin-top: 10px;
+}
+
+.social-icons a i {
+  font-size: 18px;
+  color: white;
+  background-color: #1a1a1a;
+  padding: 8px;
+  border-radius: 50%;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.social-icons a i:hover {
+  background-color: #ffcc00;
+  color: black;
+  transform: scale(1.1);
+}
+
+.store-badges a img {
+  width: 110px;
+  height: auto;
+  margin-top: 8px;
+  margin-right: 10px;
+  transition: transform 0.2s ease;
+}
+
+.store-badges a img:hover {
+  transform: scale(1.05);
+}

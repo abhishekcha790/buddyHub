@@ -7,7 +7,7 @@ function UserSection() {
   const { user, logout } = useAuth();
 
   return (
-    <div className="d-flex align-items-center gap-5">
+    <div className="d-flex align-items-center gap-4">
       <img src={favourite} alt="Favorites" width="28" height="28" title="Favorites" />
 
       {user ? (
@@ -19,8 +19,7 @@ function UserSection() {
             data-bs-toggle="dropdown"
             aria-expanded="false"
           >
-            <img src={user.image} alt="User" className="rounded-circle me-2" width="30" height="30" />
-            {user.name}
+            <img src={user.image} alt="User" className="rounded-circle" width="30" height="30" />
           </button>
           <ul className="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
             <li><button className="dropdown-item" onClick={logout}>Logout</button></li>

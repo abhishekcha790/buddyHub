@@ -1,13 +1,14 @@
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useContext, useState, useEffect } from "react";
+import { formatUser } from "../components/utils/formatUser";
 
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState(null); 
+  const [user, setUser] = useState(null);
 
   useEffect(() => {
-    const savedUser = localStorage.getItem("user");
-    if (savedUser) setUser(JSON.parse(savedUser));
+    const storedUser = JSON.parse(localStorage.getItem("user"));
+    if (storedUser) setUser(storedUser);
   }, []);
 
   const login = (userData) => {
@@ -18,11 +19,20 @@ export const AuthProvider = ({ children }) => {
   const logout = () => {
     setUser(null);
     localStorage.removeItem("user");
-    localStorage.removeItem("token");
+  };
+
+  const loginWithGoogle = (googleData) => {
+    const user = formatUser("google", googleData);
+    login(user);
+  };
+
+  const loginWithPhone = () => {
+    const user = formatUser("phone");
+    login(user);
   };
 
   return (
-    <AuthContext.Provider value={{ user, login, logout }}>
+    <AuthContext.Provider value={{ user, login, logout, loginWithGoogle, loginWithPhone }}>
       {children}
     </AuthContext.Provider>
   );
