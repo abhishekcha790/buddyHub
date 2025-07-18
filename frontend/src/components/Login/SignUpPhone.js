@@ -31,7 +31,7 @@ const SignUpPhone = () => {
     setOtpError("");
 
     try {
-      const response = await axios.post('http://localhost:3001/api/auth/verify-otp', {
+      const response = await axios.post('http://localhost:3002/api/auth/verify-otp', {
         phone: `+91${Call_No}`,
         otp,
       });
@@ -56,7 +56,7 @@ const SignUpPhone = () => {
     if (Call_No.length !== 10) return;
 
     try {
-      const response = await axios.post('http://localhost:3001/api/auth/send-otp', {
+      const response = await axios.post('http://localhost:3002/api/auth/send-otp', {
         phone: `+91${Call_No}`
       });
 
@@ -108,7 +108,7 @@ const SignUpPhone = () => {
             }}
           />
         </div>
-
+        
         {/* Inline warning below input, right aligned */}
         {showResendBox && (
           <div className="w-100 mb-2 d-flex justify-content-end" style={{ maxWidth: "400px" }}>
@@ -125,7 +125,7 @@ const SignUpPhone = () => {
             )}
           </div>
         )}
-
+       
         {(touched || sendAttempted) && Call_No.length > 0 && Call_No.length < 10 && (
           <p className="text-danger small">Enter a valid 10-digit phone number</p>
         )}
