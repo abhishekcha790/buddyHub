@@ -1,7 +1,27 @@
+/**
+ * RightUpper.js
+ * 
+ * This component handles OTP-based authentication using either phone number or email.
+ * 
+ * Flow:
+ * - The user enters a phone number or email address.
+ * - If valid, clicking the arrow image sends an OTP to the given phone/email.
+ * - Upon successful OTP send, an input field appears to enter the OTP.
+ * - After entering the OTP, clicking the "Login" button verifies it via the backend.
+ * - On successful verification, the user is redirected to the home page.
+ * 
+ * Features:
+ * - Validates phone/email input.
+ * - Implements cooldown logic (30 seconds) to prevent repeated OTP requests.
+ * - Handles and displays both error and success messages.
+ * - Uses Axios for API communication and React Router for navigation.
+ */
+
 import React, { useState } from "react";
 import axios from "axios";
 import Arrow from "../assets/arrow1.png";
 import { useNavigate } from 'react-router-dom';
+import {useAuth} from "../../context/AuthContext"
 
 const RightUpper = () => {
   const [input, setInput] = useState("");
@@ -13,6 +33,7 @@ const RightUpper = () => {
   const [otpCooldown, setOtpCooldown] = useState(false);
 
   const navigate = useNavigate();
+  const { login } = useAuth(); // ✅ use AuthContext
 
 
   const isPhone = (value) => /^\d{10}$/.test(value);
@@ -35,7 +56,7 @@ const RightUpper = () => {
         ? { phone: `+91${input}` }
         : { email: input };
        console.log(payload)
-      const response = await axios.post("http://localhost:3002/api/auth/login/send-otp", payload);
+      const response = await axios.post("http://localhost:3001/api/auth/login/send-otp", payload);
       if (response.data.success) { 
         setOtpSent(true);
         setSuccess("OTP sent successfully.");
@@ -59,44 +80,46 @@ const RightUpper = () => {
   };
 
   const verifyOtp = async () => {
-    setVerifying(true);
-    setError(""); 
-    setSuccess("");
+  setVerifying(true);
+  setError("");
+  setSuccess("");
 
-    if (!otp || otp.length !== 6) {
-      setError("Please enter the 6-digit OTP.");
-      setVerifying(false);
-      return;
+  if (!otp || otp.length !== 6) {
+    setError("Please enter the 6-digit OTP.");
+    setVerifying(false);
+    return;
+  }
+
+  try {
+    const payload = isPhone(input)
+      ? { phone: `+91${input}`, otp }
+      : { email: input, otp };
+
+    const response = await axios.post("http://localhost:3001/api/auth/login/verify-otp", payload);
+
+    if (response.data.success) {
+      const userData = response.data.user;
+      const token = response.data.token;
+
+      login(userData); // 🔑 Set context
+      setSuccess("Login successful!");
+      navigate("/");
+    } else {
+      setError(response.data.message || "OTP verification failed.");
     }
-  
-    try {
-      const payload = isPhone(input)
-        ? { phone: `+91${input}`, otp }
-        : { email: input, otp };
-
-      const response = await axios.post("http://localhost:3002/api/auth/login/verify-otp", payload);
-      if (response.data.success) {
-        setSuccess("Login successful!");
-       
-        navigate("/") 
-      } else {
-        setError(response.data.message || "OTP verification failed.");
-      }
-    } catch (err) {
-       if (err.response) {
-     setError(err.response.data.message || "Something went wrong.");
-      console.error("Backend error:", err.response.data);
+  } catch (err) {
+    if (err.response) {
+      setError(err.response.data.message || "Something went wrong.");
     } else if (err.request) {
       setError("No response from server. Please try again.");
-      console.error("No response from server");
     } else {
       setError("Unexpected error occurred.");
-      console.error("Axios error:", err.message);
     }
-    } finally {
-      setVerifying(false);
-    }
-  };
+  } finally {
+    setVerifying(false);
+  }
+};
+
 
   return (
     <div style={{ width: "504px", height: "auto", marginTop: "-20px", padding: "8px", borderRadius: "8px" }}>

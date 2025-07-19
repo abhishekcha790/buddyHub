@@ -1,4 +1,8 @@
-// src/components/Login/Login.js
+// Login.js: This is the main login page component. It renders the fixed header, a centered login box with two sections:
+// LeftSideLogin shows a Bootstrap carousel with promotional messages.
+// The right side conditionally renders either the phone sign-up form or login with email/Google/OTP options.
+// Uses context (PhoneContext) to toggle between views and handles responsive layout using Bootstrap.
+
 import React from "react";
 import Header from "../Header/Header";
 import LeftSideLogin from "./LeftSideLogin";
@@ -17,7 +21,7 @@ function Login() {
         <Header />
       </div>
 
-      <div className="container d-flex justify-content-center align-items-center" style={{ minHeight: "100vh", paddingTop: "10px",marginTop:"-50px" }}>
+      <div className="container d-flex justify-content-center align-items-center" style={{ minHeight: "100vh", paddingTop: "10px", marginTop: "-50px" }}>
         <div className="row shadow rounded overflow-hidden bg-white w-100" style={{ maxWidth: "750px" }}>
           <div className="col-12 col-md-4 d-flex justify-content-center align-items-center bg-white border-end">
             <LeftSideLogin />

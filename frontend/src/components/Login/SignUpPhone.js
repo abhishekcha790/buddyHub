@@ -1,8 +1,28 @@
+/**
+ * SignUpPhone.js
+ * 
+ * This component handles phone number-based user signup via OTP.
+ * 
+ * Flow:
+ * - User enters their 10-digit mobile number.
+ * - Clicking the arrow icon sends an OTP to the phone via backend.
+ * - OTP input and resend logic is displayed on successful OTP dispatch.
+ * - User enters OTP and clicks "Create Account".
+ * - OTP is verified; if successful, user is logged in and navigated to home.
+ * 
+ * Features:
+ * - Validates phone number (must be 10 digits) and OTP (must be 6 digits).
+ * - Handles errors and shows appropriate user messages.
+ * - Includes resend OTP timer (30s cooldown).
+ * - Uses React Context for authentication (`loginWithPhone()`).
+ * - Fully responsive and styled with Bootstrap classes.
+ */
+
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Arrow from "../assets/arrow1.png";
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../../context/AuthContext';
+import { useAuth } from "../../context/AuthContext";
 
 const ERROR_MESSAGES = {
   INVALID_PHONE: "Enter a valid 10-digit phone number",

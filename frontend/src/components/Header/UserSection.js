@@ -19,7 +19,7 @@ function UserSection() {
             data-bs-toggle="dropdown"
             aria-expanded="false"
           >
-            <img src={user.image} alt="User" className="rounded-circle" width="30" height="30" />
+            <img src={user?.image || "https://cdn-icons-png.flaticon.com/512/149/149071.png"} alt="User" className="rounded-circle" width="30" height="30" />
           </button>
           <ul className="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
             <li><button className="dropdown-item" onClick={logout}>Logout</button></li>

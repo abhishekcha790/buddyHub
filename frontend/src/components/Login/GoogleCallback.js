@@ -1,3 +1,12 @@
+/**
+ * @summary
+ * Handles Google OAuth redirect callback:
+ * - Extracts `code` from URL query params after Google redirects back
+ * - Sends `code` to backend to exchange for access token and user data
+ * - On success, logs in the user via context and navigates to home page
+ * - Displays a loading message while login is in progress
+ */
+
 import { useEffect } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { googleAuth } from "../../api";
