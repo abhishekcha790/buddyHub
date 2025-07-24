@@ -19,10 +19,13 @@
 
 import React, { useState } from "react";
 import axios from "axios";
+
 import Arrow from "../assets/arrow1.png";       // default gray arrow
 import sendArrow from "../assets/OtpArrow2.png"; // ✅ green arrow after OTP sent
 import { useNavigate } from "react-router-dom";
+
 import {useAuth} from "../../context/AuthContext"
+
 
 const RightUpper = () => {
   const [input, setInput] = useState("");
@@ -36,7 +39,6 @@ const RightUpper = () => {
 
   const navigate = useNavigate();
   const { login } = useAuth(); // ✅ use AuthContext
-
 
   const isPhone = (value) => /^\d{10}$/.test(value);
   const isEmail = (value) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
@@ -87,9 +89,9 @@ const RightUpper = () => {
   };
 
   const verifyOtp = async () => {
-  setVerifying(true);
-  setError("");
-  setSuccess("");
+    setVerifying(true);
+    setError("");
+    setSuccess("");
 
   if (!otp || otp.length !== 6) {
     setError("Please enter the 6-digit OTP.");
@@ -127,6 +129,8 @@ const RightUpper = () => {
   }
 };
 
+
+  const arrowImage = otpCooldown ? sendArrow : Arrow;
 
   return (
     <div
