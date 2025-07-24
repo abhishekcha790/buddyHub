@@ -1,3 +1,15 @@
+/**
+ * @summary
+ * Google OAuth Login Controller:
+ * - Receives authorization code from frontend
+ * - Exchanges it for access and ID tokens using Google OAuth2 client
+ * - Fetches user info (name, email, picture) from Google API
+ * - Checks if user exists in the database; creates one if not
+ * - Generates a JWT token with user ID and email
+ * - Responds with login success message, token, and user details
+ */
+
+
 const UserModel = require("../models/userModel.js");
 const client = require("twilio")(
   process.env.TWILIO_ACCOUNT_SID,

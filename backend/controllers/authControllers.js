@@ -1,3 +1,14 @@
+/**
+ * @summary
+ * Handles Google OAuth login:
+ * - Receives auth code from frontend
+ * - Exchanges code for access token via Google OAuth2
+ * - Fetches user info from Google API
+ * - Checks if user exists in DB, creates if not
+ * - Generates JWT token for authenticated sessions
+ * - Returns token and user data to the client
+ */
+
 const { oauth2Client } = require("../utils/googleConfig.js");
 const jwt = require("jsonwebtoken");
 const axios = require("axios");
@@ -22,7 +33,6 @@ const googleLogin = async (req, res) => {
       expiresIn: process.env.JWT_TIMEOUT,
     });
     
-
     return res.status(200).json({ message: "Login successful", token, user });
   } catch (error) {
     console.error("Error during Google login:", error);

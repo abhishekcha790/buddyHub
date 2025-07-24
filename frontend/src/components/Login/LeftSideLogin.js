@@ -1,4 +1,12 @@
-// src/components/Login/LeftSideLogin.js
+/**
+ * @summary
+ * LeftSideLogin component:
+ * - Displays a Bootstrap-powered image carousel for login page visuals
+ * - Uses three rotating slides with themed images and taglines
+ * - Initializes the carousel using Bootstrap's JS API via useEffect
+ * - Enhances user experience on medium+ screens with branding and messaging
+ */
+
 import React, { useEffect } from "react";
 import guitar from "../assets/guitar.png";
 import motorcycle from "../assets/motorcycle.png";
@@ -23,7 +31,7 @@ function LeftSideLogin() {
         data-bs-ride="carousel"
         data-bs-interval="2000"
       >
-       <h1 className="mb-5 mt-0 fs-4 d-none d-md-block">excomfy</h1>
+        <h1 className="mb-5 mt-0 fs-4 d-none d-md-block">excomfy</h1>
 
         <div className="carousel-inner">
           <div className="carousel-item active">
@@ -44,7 +52,7 @@ function LeftSideLogin() {
             <img
               src={work}
               className="mx-auto d-block"
-              style={{  width: "110px", marginTop: "2rem" }}
+              style={{ width: "110px", marginTop: "2rem" }}
               alt="Work"
             />
             <p className="small mt-4" style={{ fontFamily: "'Itim', cursive" }}>
@@ -58,12 +66,12 @@ function LeftSideLogin() {
             <img
               src={motorcycle}
               className="mx-auto d-block"
-              style={{  width: "110px", marginTop: "2rem" }}
+              style={{ width: "110px", marginTop: "2rem" }}
               alt="Motorcycle"
             />
             <p className="small mt-4" style={{ fontFamily: "'Itim', cursive" }}>
               Seal the deal without <br />
-               stepping outside.
+              stepping outside.
             </p>
           </div>
         </div>
