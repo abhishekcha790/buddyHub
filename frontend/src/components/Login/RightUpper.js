@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import axios from "axios";
-import Arrow from "../assets/arrow1.png";
-import { useNavigate } from 'react-router-dom';
+import Arrow from "../assets/arrow1.png";       // default gray arrow
+import sendArrow from "../assets/OtpArrow2.png"; // ✅ green arrow after OTP sent
+import { useNavigate } from "react-router-dom";
 
 const RightUpper = () => {
   const [input, setInput] = useState("");
@@ -11,56 +12,65 @@ const RightUpper = () => {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const [otpCooldown, setOtpCooldown] = useState(false);
+  const [sendingOtp, setSendingOtp] = useState(false); // ✅ Spinner state
 
   const navigate = useNavigate();
 
-
   const isPhone = (value) => /^\d{10}$/.test(value);
-  const isEmail = (value) =>
-    /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+  const isEmail = (value) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
 
   const sendOtp = async () => {
-    console.log("started");
     setError("");
     setSuccess("");
-    if (otpCooldown) return;
+
+    if (otpCooldown || sendingOtp) return; // prevent spamming
 
     if (!isPhone(input) && !isEmail(input)) {
       setError("Enter a valid email or 10-digit phone number.");
       return;
-    } 
+    }
 
     try {
+      setSendingOtp(true); // ✅ Show spinner instantly
+
       const payload = isPhone(input)
         ? { phone: `+91${input}` }
         : { email: input };
-       console.log(payload)
-      const response = await axios.post("http://localhost:3002/api/auth/login/send-otp", payload);
-      if (response.data.success) { 
+
+      const response = await axios.post(
+        "http://localhost:3002/api/auth/login/send-otp",
+        payload
+      );
+
+      if (response.data.success) {
         setOtpSent(true);
-        setSuccess("OTP sent successfully.");
+        setSuccess("OTP sent successfully!");
+
+        // ✅ Start cooldown → arrow stays green
         setOtpCooldown(true);
-        setTimeout(() => setOtpCooldown(false), 30000); // 30 sec cooldown
+        setTimeout(() => setOtpCooldown(false), 30000);
       } else {
         setError(response.data.message || "Failed to send OTP.");
       }
     } catch (err) {
-       if (err.response) {
-     setError(err.response.data.message || "Something went wrong.");
-      console.error("Backend error:", err.response.data);
-    } else if (err.request) {
-      setError("No response from server. Please try again.");
-      console.error("No response from server");
-    } else {
-      setError("Unexpected error occurred.");
-      console.error("Axios error:", err.message);
-    }
+      if (err.response) {
+        setError(err.response.data.message || "Something went wrong.");
+        console.error("Backend error:", err.response.data);
+      } else if (err.request) {
+        setError("No response from server. Please try again.");
+        console.error("No response from server");
+      } else {
+        setError("Unexpected error occurred.");
+        console.error("Axios error:", err.message);
+      }
+    } finally {
+      setSendingOtp(false); // ✅ Hide spinner
     }
   };
 
   const verifyOtp = async () => {
     setVerifying(true);
-    setError(""); 
+    setError("");
     setSuccess("");
 
     if (!otp || otp.length !== 6) {
@@ -68,43 +78,67 @@ const RightUpper = () => {
       setVerifying(false);
       return;
     }
-  
+
     try {
       const payload = isPhone(input)
         ? { phone: `+91${input}`, otp }
         : { email: input, otp };
 
-      const response = await axios.post("http://localhost:3002/api/auth/login/verify-otp", payload);
+      const response = await axios.post(
+        "http://localhost:3002/api/auth/login/verify-otp",
+        payload
+      );
+
       if (response.data.success) {
         setSuccess("Login successful!");
-       
-        navigate("/") 
+        navigate("/");
       } else {
         setError(response.data.message || "OTP verification failed.");
       }
     } catch (err) {
-       if (err.response) {
-     setError(err.response.data.message || "Something went wrong.");
-      console.error("Backend error:", err.response.data);
-    } else if (err.request) {
-      setError("No response from server. Please try again.");
-      console.error("No response from server");
-    } else {
-      setError("Unexpected error occurred.");
-      console.error("Axios error:", err.message);
-    }
+      if (err.response) {
+        setError(err.response.data.message || "Something went wrong.");
+        console.error("Backend error:", err.response.data);
+      } else if (err.request) {
+        setError("No response from server. Please try again.");
+        console.error("No response from server");
+      } else {
+        setError("Unexpected error occurred.");
+        console.error("Axios error:", err.message);
+      }
     } finally {
       setVerifying(false);
     }
   };
 
+  const arrowImage = otpCooldown ? sendArrow : Arrow;
+
   return (
-    <div style={{ width: "504px", height: "auto", marginTop: "-20px", padding: "8px", borderRadius: "8px" }}>
-      <h4 style={{ fontFamily: "'Itim', cursive", fontSize: "24px", textAlign: "center", margin: "15px 15px" }}>
+    <div
+      style={{
+        width: "504px",
+        height: "auto",
+        marginTop: "-20px",
+        padding: "8px",
+        borderRadius: "8px",
+      }}
+    >
+      <h4
+        style={{
+          fontFamily: "'Itim', cursive",
+          fontSize: "24px",
+          textAlign: "center",
+          margin: "15px 15px",
+        }}
+      >
         Hey, Looking to Buy and Sell products!
       </h4>
 
-      <form style={{ display: "flex", flexDirection: "column", alignItems: "center" }} onSubmit={(e) => e.preventDefault()}>
+      <form
+        style={{ display: "flex", flexDirection: "column", alignItems: "center" }}
+        onSubmit={(e) => e.preventDefault()}
+      >
+        {/* Email/Phone Input */}
         <div style={{ position: "relative", width: "400px", marginBottom: "15px" }}>
           <input
             type="text"
@@ -113,15 +147,14 @@ const RightUpper = () => {
             onChange={(e) => setInput(e.target.value.trim())}
             style={{
               width: "100%",
-              padding: "10px 40px 10px 15px",
+              padding: "10px 45px 10px 15px", // space for arrow
               border: "1px solid black",
               borderRadius: "6px",
             }}
           />
-          <img
-            src={Arrow}
-            alt="arrow"
-            onClick={sendOtp}
+
+          {/* ✅ Arrow or Spinner */}
+          <div
             style={{
               position: "absolute",
               right: "10px",
@@ -129,13 +162,50 @@ const RightUpper = () => {
               transform: "translateY(-50%)",
               width: "30px",
               height: "30px",
-              cursor: otpCooldown ? "not-allowed" : "pointer",
-              opacity: otpCooldown ? 0.4 : 1,
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
             }}
-          />
+          >
+            {sendingOtp ? (
+              // ✅ Spinner while request is processing
+              <div
+                style={{
+                  width: "22px",
+                  height: "22px",
+                  border: "2px solid #ccc",
+                  borderTop: "2px solid #007bff",
+                  borderRadius: "50%",
+                  animation: "spin 0.6s linear infinite",
+                }}
+              />
+            ) : (
+              <img
+                src={arrowImage}
+                alt="arrow"
+                onClick={sendOtp}
+                style={{
+                  width: "30px",
+                  height: "30px",
+                  cursor:
+                    otpCooldown || sendingOtp ? "not-allowed" : "pointer",
+                  opacity: otpCooldown ? 0.8 : 1,
+                  transition: "transform 0.2s ease, opacity 0.3s ease",
+                }}
+              />
+            )}
+          </div>
         </div>
 
-        {otpSent && (
+        {/* Smooth OTP input transition */}
+        <div
+          style={{
+            transition: "all 0.3s ease",
+            opacity: otpSent ? 1 : 0,
+            maxHeight: otpSent ? "60px" : "0px",
+            overflow: "hidden",
+          }}
+        >
           <input
             type="text"
             placeholder="Enter OTP"
@@ -149,8 +219,9 @@ const RightUpper = () => {
               marginBottom: "20px",
             }}
           />
-        )}
+        </div>
 
+        {/* Login Button */}
         {otpSent && (
           <button
             type="button"
@@ -165,22 +236,42 @@ const RightUpper = () => {
               borderRadius: "6px",
               fontWeight: "bold",
               cursor: verifying ? "not-allowed" : "pointer",
+              transition: "background-color 0.2s ease, transform 0.1s ease",
             }}
+            onMouseDown={(e) => (e.currentTarget.style.transform = "scale(0.97)")}
+            onMouseUp={(e) => (e.currentTarget.style.transform = "scale(1)")}
           >
             {verifying ? "Verifying..." : "Login"}
           </button>
         )}
 
+        {/* Errors / Success */}
         {error && <p style={{ color: "red", marginTop: "10px" }}>{error}</p>}
         {success && <p style={{ color: "green", marginTop: "10px" }}>{success}</p>}
 
-        <p style={{ fontSize: "0.8rem", marginTop: "9px", marginBottom: "0.8rem" }}>
+        <p
+          style={{
+            fontSize: "0.8rem",
+            marginTop: "9px",
+            marginBottom: "0.8rem",
+          }}
+        >
           If you are a new user, please login using one of the options below.
         </p>
       </form>
+
+      {/* ✅ Spinner animation CSS */}
+      <style>{`
+        @keyframes spin {
+          to { transform: rotate(360deg); }
+        }
+      `}</style>
     </div>
   );
 };
 
 export default RightUpper;
+
+
+
 
