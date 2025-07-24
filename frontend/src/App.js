@@ -6,6 +6,7 @@ import Login from "./components/Login/Login";
 import GoogleCallback from "./components/Login/GoogleCallback.js";
 import PageNotFound from "./components/PageNotFound";
 import Footer from "./components/Footer/Footer.js";
+import Product from "./components/Products/ProductView.js"
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
       <CategoryBar />
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/product" element={<Product />} />
         <Route path="/login" element={<Login />} />
         <Route path="/auth/google/callback" element={<GoogleCallback />} />
         <Route path="*" element={<PageNotFound />} />

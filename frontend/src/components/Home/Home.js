@@ -3,11 +3,12 @@ import items from "../data/items";
 import fav from "../assets/fav.png"
 import InfoBanner from "../Footer/InfoBanner";
 
+
 function Home() {
   return (
     <div className="home-container">
       <h3>Newly added items</h3>
-      <div className="card-grid">
+      <div className="card-grid" >
         {items.map((item) => (
           <div className="item-card" key={item.id}>
             <img src={item.image} alt={item.title} />
