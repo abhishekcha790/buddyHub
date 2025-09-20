@@ -13,4 +13,4 @@ router.get("/", getAllAds);
 router.get("/:category", getAdsByCategory);
 router.get("/ad/:id", getAdById);
 
-module.exports = router;   // ✅ must be exactly like this
+module.exports = router;  

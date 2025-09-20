@@ -7,6 +7,7 @@ import GoogleCallback from "./components/Login/GoogleCallback.js";
 import PageNotFound from "./components/PageNotFound";
 import Footer from "./components/Footer/Footer.js";
 import Product from "./components/Products/ProductView.js"
+import PostAdCard from "./components/Categories/PostAdCard.js"
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/auth/google/callback" element={<GoogleCallback />} />
         <Route path="*" element={<PageNotFound />} />
+        <Route path="/post-ad" element={<PostAdCard />} />
       </Routes> 
       <Footer/> 
     </>

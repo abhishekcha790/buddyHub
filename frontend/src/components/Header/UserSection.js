@@ -8,8 +8,16 @@ function UserSection() {
 
   return (
     <div className="d-flex align-items-center gap-4">
-      <img src={favourite} alt="Favorites" width="28" height="28" title="Favorites" />
+      {/* Favorites Icon */}
+      <img
+        src={favourite}
+        alt="Favorites"
+        width="28"
+        height="28"
+        title="Favorites"
+      />
 
+      {/* User Dropdown / Login */}
       {user ? (
         <div className="dropdown">
           <button
@@ -19,19 +27,38 @@ function UserSection() {
             data-bs-toggle="dropdown"
             aria-expanded="false"
           >
-            <img src={user?.image || "https://cdn-icons-png.flaticon.com/512/149/149071.png"} alt="User" className="rounded-circle" width="30" height="30" />
+            <img
+              src={
+                user?.image ||
+                "https://cdn-icons-png.flaticon.com/512/149/149071.png"
+              }
+              alt="User"
+              className="rounded-circle"
+              width="30"
+              height="30"
+            />
           </button>
-          <ul className="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
-            <li><button className="dropdown-item" onClick={logout}>Logout</button></li>
+          <ul
+            className="dropdown-menu dropdown-menu-end"
+            aria-labelledby="userDropdown"
+          >
+            <li>
+              <button className="dropdown-item" onClick={logout}>
+                Logout
+              </button>
+            </li>
           </ul>
         </div>
       ) : (
-        <Link to="/login" className="btn btn-outline-primary">Login</Link>
+        <Link to="/login" className="btn btn-outline-primary">
+          Login
+        </Link>
       )}
 
-      <button className="btn p-0 border-0 bg-transparent">
+      {/* Sell Button → navigates to /post-ad */}
+      <Link to="/post-ad" className="btn p-0 border-0 bg-transparent">
         <img src={plusSell} alt="Sell" style={{ height: "40px" }} />
-      </button>
+      </Link>
     </div>
   );
 }
